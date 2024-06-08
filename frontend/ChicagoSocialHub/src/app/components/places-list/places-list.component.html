@@ -1,0 +1,63 @@
+<div>
+
+    <mat-card>
+      <button mat-raised-button color="secondary" routerLink="/findplaces" style="float: left; margin-bottom: 20px;" >
+            Home
+            &nbsp; &nbsp; &nbsp;
+            <mat-icon>home</mat-icon>
+          </button>
+        
+      <br>
+      <table mat-table [dataSource]="places" class="tablt table-striped">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name <mat-icon> store_mall_directory</mat-icon></th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="address1">
+          <th mat-header-cell *matHeaderCellDef>Address <mat-icon> location_on</mat-icon></th>
+          <td mat-cell *matCellDef="let element"> {{element.address1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="display_phone">
+            <th mat-header-cell *matHeaderCellDef>Contact Number <mat-icon> phone</mat-icon></th>
+            <td mat-cell *matCellDef="let element"> {{element.display_phone}} </td>
+          </ng-container>
+  
+        <ng-container matColumnDef="is_closed">
+          <th mat-header-cell *matHeaderCellDef>Open / Closed <mat-icon>lock_open</mat-icon></th>
+          <td mat-cell *matCellDef="let element"> {{element.is_closed == true ? 'Closed' : 'Open'}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="rating">
+          <th mat-header-cell *matHeaderCellDef>Rating <mat-icon>star</mat-icon></th>
+          <td mat-cell *matCellDef="let element"> {{element.rating}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="review_count">
+          <th mat-header-cell *matHeaderCellDef>Total Reviews Count <mat-icon> rate_review</mat-icon></th>
+          <td mat-cell *matCellDef="let element"> {{element.review_count}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="Divvy">
+          <th mat-header-cell *matHeaderCellDef class="mat-column-right"></th>
+          <td mat-cell *matCellDef="let element" class="mat-column-right">
+            <button mat-raised-button color="secondary" (click)="searchNearByStations(element.name);">Find Divvy Stations Near this place</button>
+          </td>
+        </ng-container>
+  
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+      
+      <button mat-raised-button color="secondary" routerLink="/display_barcharts" style="text-align: center; margin-left:600px; margin-top: 25px;">
+        View Yelp Reviews Chart
+        &nbsp; &nbsp; &nbsp;
+        <mat-icon>bar_chart</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+  

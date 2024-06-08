@@ -1,0 +1,122 @@
+<br>  <button mat-raised-button color="primary" routerLink="/find" style="position: absolute;top: 75px;margin-left:20px" >
+    Home
+    &nbsp; &nbsp; &nbsp;
+    <mat-icon>home</mat-icon>
+  </button>
+
+  <button mat-raised-button color="primary" (click) = showHeatMap() style="position: absolute;top: 75px;margin-left:140px;">
+    Divvy Stations HeatMap
+    &nbsp; &nbsp; &nbsp;
+    <mat-icon>directions_bike</mat-icon>
+  </button>
+  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+
+
+  <button mat-raised-button color="primary" (click)=getDivvyDailyTripsChart() style="position: absolute;top: 75px;margin-left:140px;">
+    Divvy Trips - Trends & Seasonality
+    &nbsp; &nbsp; &nbsp;
+    <mat-icon>trending_up</mat-icon>
+    </button>
+    &nbsp; &nbsp; &nbsp;
+<button mat-raised-button color="primary" routerLink="/places_found" style="position: absolute;top: 75px;right: 50px;">
+Go Back
+&nbsp; &nbsp; &nbsp;
+<mat-icon>keyboard_backspace</mat-icon>
+</button>
+<h1 style="margin-top: 50px; text-align: center;">Nearby Divvy Stations</h1>
+<div style="display: flex;">
+    <mat-card *ngFor="let station of stations" style="flex: 1 1 auto; margin-left:5px; max-width: 400px; margin-top: 10px; padding: 50px;">
+        <mat-card-header>
+            <mat-card-title>{{station.stationName}}</mat-card-title>
+            <mat-card-subtitle>{{station.status}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content style="margin-left: 15px;">
+            <h3 class="md-headline"><u>Details</u></h3>
+            <p><b>Available Bikes: </b>{{station.availableBikes}}</p>
+            <p><b>Available Docks: </b>{{station.availableDocks}}</p>
+            <p><b>Total Docks: </b>{{station.totalDocks}}</p>
+            <p><b>Is Renting: </b>{{station.is_renting}}</p>
+            <p><b>Last Connected Time: </b>{{station.lastCommunicationTime}}</p>
+            <p><b>Latitude: </b>{{station.latitude}}</p>
+            <p><b>Longitude: </b>{{station.longitude}}</p>
+            <button mat-raised-button color="primary"  (click)="showLineChart(station.stationName);">Real-Time Chart
+                <mat-icon>show_chart</mat-icon></button><br />
+                <button mat-raised-button color="primary" (click)="getSMALineChart(station.stationName);" style="margin-top: 20px;">
+                  SMA Chart
+                  &nbsp; &nbsp; &nbsp;
+                  <mat-icon>show_chart</mat-icon>
+                </button>
+        </mat-card-content>
+    </mat-card>
+</div><br />
+<mat-divider></mat-divider><br />
+<agm-map [latitude]="location.lat" [longitude]="location.lng" [(zoom)]="location.zoom" [disableDefaultUI]="true" [zoomControl]="true" >
+
+  
+    <agm-marker
+    [latitude]="location.lat"
+    [longitude]="location.lng"
+    [iconUrl]= "icon"
+    [label]="labelString">
+  
+    <agm-info-window #infoWindow>
+      <strong>You are currently here by the Union Station</strong>
+  
+    </agm-info-window>
+    </agm-marker>
+  
+  
+  
+  
+    <agm-marker
+    [latitude]="placeSelected.latitude"
+    [longitude]="placeSelected.longitude"
+    [iconUrl]="iconUrlString" >
+  
+    <agm-info-window #infoWindow>
+      <strong>You have selected this place</strong>
+      <br><br><br>
+      <strong>Name: {{placeSelected.name}}</strong>
+      <br><br>
+      <strong>Phone: {{placeSelected.display_phone}}</strong>
+      <br><br>
+      <strong>Address: {{placeSelected.address1}}</strong>
+    </agm-info-window>
+    </agm-marker>
+  
+  
+  
+  
+  
+    <agm-marker
+      *ngFor="let m of markers; let i = index"
+      [latitude]="m.latitude"
+      [longitude]="m.longitude"
+      [label]="m.id">
+  
+      <agm-info-window #infoWindow>
+        <strong>Divvy Station</strong>
+        <br><br>
+        <strong>stationName: {{m.stationName}}</strong>
+        <br><br>
+        <strong>status: {{m.status}}</strong>
+        <br><br>
+        <strong>availableDocks: {{m.availableDocks}}</strong>
+      </agm-info-window>
+  
+  
+    </agm-marker>
+  
+  
+  
+  
+    <agm-circle [latitude]="location.lat" [longitude]="location.lng"
+    [(radius)]="radius"
+    [fillColor]="'blue'"
+    [circleDraggable]="true"
+    [editable]="true"></agm-circle>
+  
+  
+  </agm-map>
+  

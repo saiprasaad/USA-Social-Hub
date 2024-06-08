@@ -1,0 +1,31 @@
+
+<mat-card id="card" style="text-align: center;">
+	<mat-card-title>
+		Find Places
+	</mat-card-title>
+    <br/>
+      <form [formGroup]="form" class="create-form">
+
+
+
+                <mat-form-field>
+                    <mat-label>Category</mat-label>
+                    <input matInput  formControlName="category" placeholder="Type Category Here" #category >
+                    <mat-hint class="hint-color-1">Restaurants, Bars, Cafe, ... </mat-hint>
+                </mat-form-field>
+
+                <br/><br/>
+                <mat-form-field>
+                    <mat-label>Place</mat-label>
+                    <input matInput  formControlName="place" placeholder="Type Place Here" #place >
+                    <mat-hint class="hint-color-2">Enter Street name or Zipcode </mat-hint>
+                </mat-form-field><br/><br/>
+
+                <button type="submit" (click)="retrievePlaces(category.value,  place.value)"  mat-raised-button color="primary" >Search
+                    &nbsp; &nbsp; &nbsp;
+                    <mat-icon>search</mat-icon>
+                </button>
+
+
+      </form>
+    </mat-card>

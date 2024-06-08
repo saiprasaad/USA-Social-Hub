@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+}
+
+.mat-column-right {
+    text-align: center;
+}
+
+th {
+    background-color: #705A43;
+}
+
+td {
+    background-color: #F5F5DC;
+}
+.mat-header-cell {
+    color:#F5F5DC;
+    font-size: 16px;
+}

@@ -1,0 +1,21 @@
+<div class="main-div">
+
+    <mat-card style="height:100px;width:300px;display:flex;justify-content:center;align-items:center;">
+        <p>
+            Specify the time slot
+          </p> <br />
+<mat-form-field appearance="fill">
+  <mat-label>Select the Time slot</mat-label>
+  <mat-select [(value)]="selected_time_slot">
+    <mat-option *ngFor="let time of timeslots" [value]="time.value">
+      {{time.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+    </mat-card></div>
+    <div class="btn-div">
+    <button mat-raised-button color="primary" (click)=viewHeatMapForSpecifiedTimeSlot()>View Heatmap for Specified Time Slot</button>
+</div>
+<div class="btn-div-2">
+    <button mat-raised-button color="primary" (click)=viewHeatMapForDefaultTimeSlot()>View Heatmap for Default Time Slot</button>
+</div>
